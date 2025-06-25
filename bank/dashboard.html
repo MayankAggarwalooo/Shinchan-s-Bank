@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shinchan Bank Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="user-profile" onclick="window.location.href='profile.html'" style="cursor: pointer;">
+        <img id="user-photo" src="avatar.png" alt="profile" />
+        <h2 id="username">Welcome, User</h2>
+      </div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="card" onclick="flipCard(this)">
+      <div class="card-inner">
+        <div class="card-front">
+          <h3>Debit Card</h3>
+          <p>Account Holder: <strong id="card-user">John Doe</strong></p>
+          <p>Account No.: <strong id="card-account">********1234</strong></p>
+          <p>Total Balance: ₹<span id="balance">0.00</span></p>
+          <div class="card-footer">Bank of Shinchan</div>
+        </div>
+        <div class="card-back">
+          <h4>Card Details</h4>
+          <p>CVV: ***</p>
+          <p>Expiry: 12/28</p>
+          <p>Shinchan Bank</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('deposit', event)">Deposit / Withdraw</button>
+      <button class="tab" onclick="showTab('transfer', event)">Transfer Money</button>
+      <button class="tab" onclick="showTab('loan', event)">Loan</button>
+      <button class="tab" onclick="window.location.href='transection.html'">Transaction History</button>
+    </div>
+
+    <!-- Deposit & Withdraw Section -->
+    <section id="deposit" class="tab-section active-section">
+      <h3>Deposit & Withdraw</h3>
+      <div class="transaction-box">
+        <div class="form-block">
+          <h4>Deposit</h4>
+          <label>Amount</label>
+          <input type="number" id="deposit-amount" placeholder="e.g. 1000" />
+          <label>Description (optional)</label>
+          <input type="text" id="deposit-desc" placeholder="e.g. Salary" />
+          <button onclick="deposit()">Deposit</button>
+        </div>
+
+        <div class="form-block">
+          <h4>Withdraw</h4>
+          <label>Amount</label>
+          <input type="number" id="withdraw-amount" placeholder="e.g. 500" />
+          <label>Description (optional)</label>
+          <input type="text" id="withdraw-desc" placeholder="e.g. Shopping" />
+          <button onclick="withdraw()">Withdraw</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Transfer Money -->
+    <section id="transfer" class="tab-section">
+      <h3>Transfer Money</h3>
+      <div class="transaction-box">
+        <div class="form-block">
+          <label>To Account No.</label>
+          <input type="text" id="transfer-account" placeholder="e.g. 9876543210" />
+          <label>Amount</label>
+          <input type="number" id="transfer-amount" placeholder="e.g. 1500" />
+          <label>Description (optional)</label>
+          <input type="text" id="transfer-desc" placeholder="e.g. Rent" />
+          <button onclick="transfer()">Send</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Loan Section -->
+    <section id="loan" class="tab-section">
+      <h3>Loan Application</h3>
+      <div class="form-block">
+        <label>Loan Amount</label>
+        <input type="number" id="loan-amount" placeholder="e.g. 5000" />
+        <label>Purpose</label>
+        <input type="text" id="loan-purpose" placeholder="e.g. Education" />
+        <button onclick="applyLoan()">Apply for Loan</button>
+        <p id="loan-status" style="margin-top: 10px; font-weight: bold;"></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <label class="switch" style="position: fixed; top: 20px; right: 20px;">
+    <input type="checkbox" id="dark-mode-toggle">
+    <span class="slider round"></span>
+  </label>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

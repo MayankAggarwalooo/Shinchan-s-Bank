@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Shinchan Bank</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to right, #ff595e, #ffca3a);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .register-container {
+      background-color: #fff9f0;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .register-container h2 {
+      color: #ff595e;
+      margin-bottom: 20px;
+    }
+
+    .register-container input,
+    .register-container select {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .register-container button {
+      background-color: #ffca3a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin-top: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .register-container button:hover {
+      background-color: #ff595e;
+    }
+
+    .register-container p {
+      margin-top: 15px;
+    }
+
+    .register-container a {
+      color: #ff595e;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .register-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <h2>Register at Shinchan Bank</h2>
+    <input type="text" id="reg-username" placeholder="👤 Username" required />
+    <input type="password" id="reg-password" placeholder="🔒 Password" required />
+    <input type="text" id="reg-fullname" placeholder="Full Name" required />
+    <input type="email" id="reg-email" placeholder="Email" required />
+    <input type="text" id="reg-phone" placeholder="Phone Number" required />
+
+    <select id="reg-account-type">
+      <option value="">🏦 Select Account Type</option>
+      <option value="Saving">Saving Account</option>
+      <option value="Current">Current Account</option>
+      <option value="FD">Fixed Deposit (FD)</option>
+    </select>
+    <button onclick="register()">Register</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script>
+    function register() {
+      const username = document.getElementById("reg-username").value.trim();
+      const email = document.getElementById("reg-email").value.trim().toLowerCase();
+      const password = document.getElementById("reg-password").value.trim();
+      const fullname = document.getElementById("reg-fullname").value.trim();
+      const phone = document.getElementById("reg-phone").value.trim();
+      const accountType = document.getElementById("reg-account-type").value;
+
+      if (!username || !email || !password || !fullname || !phone || !accountType) {
+        alert("🚫 Please fill in all fields.");
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+
+      const userExists = users.some(user => user.email === email);
+      if (userExists) {
+        alert("⚠️ Email already registered. Try another.");
+        return;
+      }
+
+      const accountNo = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+
+      const newUser = {
+        username,
+        email,
+        password,
+        fullname,
+        phone,
+        accountType,
+        accountNo,
+        balance: 0,
+        transactions: []
+      };
+
+      users.push(newUser);
+      localStorage.setItem("users", JSON.stringify(users));
+
+      alert("🎉 Registration successful! Please login.");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
